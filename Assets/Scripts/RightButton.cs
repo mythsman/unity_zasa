@@ -5,7 +5,7 @@ using UnityEngine;
 public class RightButton : MonoBehaviour
 {
 	private int process;
-	private const int maxProcess = 10;
+	private const int maxProcess = 20;
 	private bool onRotate;
 	private Transform boxTransform;
 

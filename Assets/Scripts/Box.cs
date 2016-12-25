@@ -10,18 +10,23 @@ public class Box : MonoBehaviour
 	public const int LEFT = 1;
 	public const int RIGHT = 2;
 	public const int BACK = 3;
+	public const int TOP = 4;
 
 
 	private static int direction = FRONT;
-	public static ArrayList surfaces = new ArrayList (4);
+	private static ArrayList surfaces = new ArrayList (4);
+	private static bool rotating = false;
 
-	private static bool rotating=false;
-	public static bool IsRotating(){
+	public static bool IsRotating ()
+	{
 		return rotating;
 	}
-	public static void ToggleRotate(){
+
+	public static void ToggleRotate ()
+	{
 		rotating = !rotating;
 	}
+
 	public static void TurnLeft ()
 	{
 		switch (direction) {
@@ -95,11 +100,20 @@ public class Box : MonoBehaviour
 		return output;
 	}
 
+	public static void Calibrate(){
+		
+		((GameObject)surfaces[FRONT]).GetComponent<Transform> ().localPosition= new Vector3 (0,0,-1.5f);
+		((GameObject)surfaces[BACK]).GetComponent<Transform> ().localPosition= new Vector3 (0,0,1.5f);
+		((GameObject)surfaces[LEFT]).GetComponent<Transform> ().localPosition= new Vector3 (-1.5f,0,0);
+		((GameObject)surfaces[RIGHT]).GetComponent<Transform> ().localPosition= new Vector3 (1.5f,0,0);
 
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		rotating = false;
+		direction = FRONT;
 		surfaces.Add (null);
 		surfaces.Add (null);
 		surfaces.Add (null);
@@ -113,7 +127,7 @@ public class Box : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		
+
 	}
 }
 	

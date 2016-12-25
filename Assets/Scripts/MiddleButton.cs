@@ -29,7 +29,7 @@ public class MiddleButton : MonoBehaviour
 		if (onRotate) {
 			if (topView) {
 				cameraTransform.RotateAround (new Vector3 (0, -1.5f, 0), new Vector3 (1, 0, 1), -54.74f / maxProcess);
-				cameraTransform.Rotate (0, 0, 45f / maxProcess);
+				cameraTransform.Rotate (0, 0,45f / maxProcess);
 				cameraCamera.orthographicSize = 5-2.0f*process/maxProcess;
 
 
@@ -43,6 +43,7 @@ public class MiddleButton : MonoBehaviour
 					onRotate = false;
 					process = 0;
 					Box.ToggleRotate ();
+					Box.Calibrate ();
 				}
 			} else {
 				cameraTransform.RotateAround (new Vector3 (0, -1.5f, 0), new Vector3 (1, 0, 1), 54.74f / maxProcess);
@@ -60,6 +61,7 @@ public class MiddleButton : MonoBehaviour
 					onRotate = false;
 					process = 0;
 					Box.ToggleRotate ();
+
 				}
 			}
 		}
