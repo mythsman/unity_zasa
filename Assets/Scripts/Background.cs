@@ -7,8 +7,9 @@ public class Background : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		skyBox=GameObject.Find ("Main Camera").GetComponent<Skybox>();
-		//Texture2D texture = Resources.Load ("icons/circle20") as Texture2D;
-		//Cursor.SetCursor (texture,new Vector2(16,16),CursorMode.ForceSoftware);
+		//Screen.SetResolution(1280, 800, true, 60);
+
+		Screen.SetResolution (1600, 900, true);
 	}
 	
 	// Update is called once per frame

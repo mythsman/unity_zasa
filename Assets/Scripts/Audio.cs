@@ -14,6 +14,8 @@ public class Audio : MonoBehaviour {
 			instance =this;
 			audioSource = this.GetComponent<AudioSource> ();
 			DontDestroyOnLoad (this);
+//			Texture2D texture = Resources.Load ("icons/b1") as Texture2D;
+//			Cursor.SetCursor (texture,new Vector2(32,32),CursorMode.ForceSoftware);
 		}else{
 			Destroy (this.gameObject);
 		}
