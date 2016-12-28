@@ -20,7 +20,7 @@ public class Click_On_Off : MonoBehaviour {
 			  
 	}
 	void OnMouseDown() {
-		Point_List.point_list.Add (Main.table[direct,index]);
+		//Point_List.point_list.Add (Main.table[direct,index]);
 	}
 
 	public void set_active(){

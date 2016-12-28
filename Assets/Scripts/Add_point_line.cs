@@ -9,9 +9,11 @@ public class Add_point_line : MonoBehaviour {
 	public GameObject []LeftRight_Line = new GameObject[9];
 	public GameObject[] RightLeft_Line = new GameObject[9];
 	public GameObject []Point=new GameObject[16];
+	public GameObject[] transparent_point = new GameObject[16];
 	public GameObject line;
 	public GameObject long_line;
 	public GameObject point;
+	public GameObject transparent;
 
 	private int direct;
 
@@ -45,6 +47,12 @@ public class Add_point_line : MonoBehaviour {
 				Point [i].GetComponent<MeshFilter> ().mesh.name = "Sphere";
 				Point [i].transform.localPosition = new Vector3 (-0.5f + 1 / 3f * (i % 4), 0.5f - 1 / 3f * (i / 4), 0);
 				Point [i].GetComponent<Click_On_Off> ().set_property (direct, i);
+
+				transparent_point[i]=Instantiate (transparent, transform.position, transform.rotation);
+				transparent_point[i].transform.SetParent (this.gameObject.transform);
+				transparent_point[i].GetComponent<MeshFilter> ().mesh.name = "Sphere";
+				transparent_point[i].transform.localPosition = new Vector3 (-0.5f + 1 / 3f * (i % 4), 0.5f - 1 / 3f * (i / 4), 0);
+				transparent_point [i].GetComponent<transparent_click> ().set_property (direct, i);
 			}
 
 			for (int i = 0; i < 12; i++) {
@@ -97,12 +105,16 @@ public class Add_point_line : MonoBehaviour {
 	}
 
 	public void disable_all(){
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 16; i++){
 			Point [i].SetActive (false);
+			transparent_point [i].SetActive (false);
+		}
 	}
 
 	public void enable_all(){
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 16; i++) {
 			Point [i].SetActive (true);
+			transparent_point [i].SetActive (true);
+		}
 	}
 }

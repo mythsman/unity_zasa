@@ -42,7 +42,7 @@ public class MiddleButton : MonoBehaviour
 			int starNum = 1;
 			if (RotateCount == Global.minStep)
 				starNum = 3;
-			else if (RotateCount + 2 >= Global.minStep) {
+			else if (RotateCount<= Global.minStep+2) {
 				starNum = 2;
 			}
 			GameObject.Find("Canvas/GameOverCanvas/Stars").GetComponent<RawImage>().texture=Resources.Load("stars/success"+starNum)as Texture;

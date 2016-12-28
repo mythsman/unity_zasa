@@ -16,7 +16,7 @@ public class GameOver : MonoBehaviour {
 	}
 	public void NextOnClick(){
 		Global.level++;
-		if (Global.level > 12) {
+		if (Global.level > 20) {
 			Global.level = 1;
 		}
 		LevelButton.SetLevel (Global.level);

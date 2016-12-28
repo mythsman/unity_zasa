@@ -8,9 +8,9 @@ public class point {
 	public int direct,index;
 	public ArrayList local_pos = new ArrayList ();
 
-	Color[] color = { Color.white, new Color(0.8f,0,0) };
+	Color[] color = { Color.white, new Color(0f,0.486f,1f) };
 
-	public point(int _x,int _y,int _z){
+	public point(int _x,int _y,int _z){	
 		x = _x;
 		y = _y;
 		z = _z;
