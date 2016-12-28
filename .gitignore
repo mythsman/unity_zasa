@@ -19,3 +19,4 @@ obj/
 *.unityproj
 *.booproj
 *.exe
+*_Data/
