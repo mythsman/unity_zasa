@@ -5,7 +5,7 @@ using UnityEngine;
 public class LeftButton : MonoBehaviour
 {
 	private int process;
-	private const int maxProcess = 20;
+	private const int maxProcess = 10;
 
 	private bool onRotate;
 	private Transform boxTransform;
@@ -28,6 +28,8 @@ public class LeftButton : MonoBehaviour
 				onRotate = false;
 				process = 0;
 				Box.ToggleRotate ();
+				if(Point_List.sure_index>-1)
+					((point)Point_List.point_list [Point_List.sure_index]).set_color (1);
 			}
 		}
 	}
@@ -35,6 +37,7 @@ public class LeftButton : MonoBehaviour
 	public void OnClick ()
 	{
 		if (!onRotate&&!Box.IsRotating()) {
+			MiddleButton.RotateCount++;
 			onRotate = true;
 			Box.TurnLeft ();
 			Box.ToggleRotate ();

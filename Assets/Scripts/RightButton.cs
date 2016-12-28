@@ -5,7 +5,7 @@ using UnityEngine;
 public class RightButton : MonoBehaviour
 {
 	private int process;
-	private const int maxProcess = 20;
+	private const int maxProcess = 10;
 	private bool onRotate;
 	private Transform boxTransform;
 
@@ -27,6 +27,8 @@ public class RightButton : MonoBehaviour
 				onRotate = false;
 				process = 0;
 				Box.ToggleRotate ();
+				if(Point_List.sure_index>-1)
+					((point)Point_List.point_list [Point_List.sure_index]).set_color (1);
 			}
 		}
 	}
@@ -34,6 +36,7 @@ public class RightButton : MonoBehaviour
 	public void OnClick ()
 	{
 		if (!onRotate&&!Box.IsRotating()) {
+			MiddleButton.RotateCount++;
 			onRotate = true;
 			Box.TurnRight ();
 			Box.ToggleRotate ();

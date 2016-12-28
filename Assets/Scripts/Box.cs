@@ -11,24 +11,85 @@ public class Box : MonoBehaviour
 	public const int RIGHT = 2;
 	public const int BACK = 3;
 	public const int TOP = 4;
+	public const int DOWN = 5;
 
+	public ArrayList[,] Items = new ArrayList[6,6];
 
-	private static int direction = FRONT;
-	private static ArrayList surfaces = new ArrayList (4);
-	private static bool rotating = false;
+	public static int[] top_turn_left = { 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 };
+	public static int[] top_turn_right = { 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 };
 
-	public static bool IsRotating ()
-	{
+	public static int direction = FRONT;
+	public static ArrayList surfaces = new ArrayList (4);
+
+	private static bool rotating=false;
+	public static bool IsRotating(){
 		return rotating;
 	}
-
-	public static void ToggleRotate ()
-	{
+	public static void ToggleRotate(){
 		rotating = !rotating;
 	}
 
 	public static void TurnLeft ()
 	{
+		int dir,index;
+		if (Point_List.sure_index>=0 && (Point_List.sure_index ==0 || !Main.Is_Line_On ((point)Point_List.point_list [Point_List.sure_index], (point)Point_List.point_list [Point_List.sure_index - 1]))) {
+			dir = ((point)(Point_List.point_list [Point_List.sure_index])).direct;
+			index = ((point)Point_List.point_list [Point_List.sure_index]).index;
+			switch (dir) {
+			case 0:
+				dir = 2;
+				break;
+			case 2:
+				dir = 3;
+				break;
+			case 3:
+				dir = 1;
+				break;
+			case 1:
+				dir = 0;
+				break;
+			case 4:
+				index=top_turn_left[index];
+				break;
+			default:
+				break;	
+			}
+			((point)Point_List.point_list [Point_List.sure_index]).set_color (0);
+			Point_List.point_list.RemoveAt (Point_List.sure_index);
+			Main.table [dir, index].set_color (0);
+			Point_List.point_list.Add (Main.table [dir,index]);
+		}
+		else if(Point_List.sure_index>=0){
+			dir = ((point)(Point_List.point_list [Point_List.sure_index])).direct;
+			index = ((point)Point_List.point_list [Point_List.sure_index]).index;
+			//Debug.Log (dir);
+			//Debug.Log (index);
+			switch (dir) {
+			case 0:
+				dir = 2;
+				break;
+			case 2:
+				dir = 3;
+				break;
+			case 3:
+				dir = 1;
+				break;
+			case 1:
+				dir = 0;
+				break;
+			case 4:
+				index = top_turn_left [index];
+				break;
+			default:
+				break;	
+			}
+			Main.table [dir, index].set_color (0);
+			Point_List.point_list.Add (Main.table [dir,index]);
+			Point_List.sure_index += 1;
+			((point)Point_List.point_list [Point_List.sure_index-1]).set_color (0);
+		}
+
+
 		switch (direction) {
 		case FRONT:
 			direction = RIGHT;
@@ -43,10 +104,67 @@ public class Box : MonoBehaviour
 			direction = LEFT;
 			break;
 		}
+
 	}
 
 	public static void TurnRight ()
 	{
+		int dir, index;
+		if (Point_List.sure_index>=0 && (Point_List.sure_index ==0 || !Main.Is_Line_On ((point)Point_List.point_list [Point_List.sure_index], (point)Point_List.point_list [Point_List.sure_index - 1]))) {
+			dir = ((point)(Point_List.point_list [Point_List.sure_index])).direct;
+			index = ((point)Point_List.point_list [Point_List.sure_index]).index;
+			switch (dir) {
+			case 0:
+				dir = 1;
+				break;
+			case 2:
+				dir = 0;
+				break;
+			case 3:
+				dir = 2;
+				break;
+			case 1:
+				dir = 3;
+				break;
+			case 4:
+				index=top_turn_right[index];
+				break;
+			default:
+				break;	
+			}
+			((point)Point_List.point_list [Point_List.sure_index]).set_color (0);
+			Point_List.point_list.RemoveAt (Point_List.sure_index);
+			Main.table [dir, index].set_color (0);
+			Point_List.point_list.Add (Main.table [dir,index]);
+		}
+		else if(Point_List.sure_index>=0){
+			dir = ((point)(Point_List.point_list [Point_List.sure_index])).direct;
+			index = ((point)Point_List.point_list [Point_List.sure_index]).index;
+			switch (dir) {
+			case 0:
+				dir = 1;
+				break;
+			case 2:
+				dir = 0;
+				break;
+			case 3:
+				dir = 2;
+				break;
+			case 1:
+				dir = 3;
+				break;
+			case 4:
+				index = top_turn_right [index];
+				break;
+			default:
+				break;	
+			}
+			Main.table [dir, index].set_color (0);
+			Point_List.point_list.Add (Main.table [dir,index]);
+			Point_List.sure_index += 1;
+			((point)Point_List.point_list [Point_List.sure_index-1]).set_color (0);
+		}
+
 		switch (direction) {
 		case FRONT:
 			direction = LEFT;
@@ -100,19 +218,11 @@ public class Box : MonoBehaviour
 		return output;
 	}
 
-	public static void Calibrate(){
-		
-		((GameObject)surfaces[FRONT]).GetComponent<Transform> ().localPosition= new Vector3 (0,0,-1.5f);
-		((GameObject)surfaces[BACK]).GetComponent<Transform> ().localPosition= new Vector3 (0,0,1.5f);
-		((GameObject)surfaces[LEFT]).GetComponent<Transform> ().localPosition= new Vector3 (-1.5f,0,0);
-		((GameObject)surfaces[RIGHT]).GetComponent<Transform> ().localPosition= new Vector3 (1.5f,0,0);
 
-	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		rotating = false;
 		direction = FRONT;
 		surfaces.Add (null);
 		surfaces.Add (null);
@@ -127,7 +237,7 @@ public class Box : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-
+		
 	}
 }
 	

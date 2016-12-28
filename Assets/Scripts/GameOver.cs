@@ -16,9 +16,10 @@ public class GameOver : MonoBehaviour {
 	}
 	public void NextOnClick(){
 		Global.level++;
-		if (Global.level > 6) {
+		if (Global.level > 12) {
 			Global.level = 1;
 		}
+		LevelButton.SetLevel (Global.level);
 		SceneManager.LoadScene ("Zasa");
 	}
 
@@ -26,7 +27,7 @@ public class GameOver : MonoBehaviour {
 		SceneManager.LoadScene ("Zasa");
 	}
 	public void ReturnOnClick(){
-		SceneManager.LoadScene ("SelectLevel");
+		SceneManager.LoadScene ("Welcome");
 	}
 }
 

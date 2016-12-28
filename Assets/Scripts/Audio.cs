@@ -14,8 +14,8 @@ public class Audio : MonoBehaviour {
 			instance =this;
 			audioSource = this.GetComponent<AudioSource> ();
 			DontDestroyOnLoad (this);
-//			Texture2D texture = Resources.Load ("icons/b1") as Texture2D;
-//			Cursor.SetCursor (texture,new Vector2(32,32),CursorMode.ForceSoftware);
+			Texture2D texture = Resources.Load ("icons/mouse_60") as Texture2D;
+			Cursor.SetCursor (texture,new Vector2(32,32),CursorMode.ForceSoftware);
 		}else{
 			Destroy (this.gameObject);
 		}
@@ -25,11 +25,11 @@ public class Audio : MonoBehaviour {
 		if (onPlaying) {
 			audioSource.Pause ();
 			onPlaying = false;
-			GameObject.Find ("AudioCanvas/MusicButton/RawImage").GetComponent<RawImage> ().texture = Resources.Load ("icons/music_off") as Texture;
+			GameObject.Find ("GlobalCanvas/MusicButton/RawImage").GetComponent<RawImage> ().texture = Resources.Load ("icons/music_off") as Texture;
 		} else {
 			audioSource.Play ();
 			onPlaying = true;
-			GameObject.Find ("AudioCanvas/MusicButton/RawImage").GetComponent<RawImage> ().texture = Resources.Load ("icons/music_on") as Texture;
+			GameObject.Find ("GlobalCanvas/MusicButton/RawImage").GetComponent<RawImage> ().texture = Resources.Load ("icons/music_on") as Texture;
 		}
 	}
 }
