@@ -38,13 +38,21 @@ public class MiddleButton : MonoBehaviour
 			return;
 		if (topView&&IsSuccess ()) {
 			//GameObject.Find ("Box").SetActive(false);
-			obj.SetActive (true);
+
+			GameObject.Find ("Box/FrontSurface").SetActive (false);
+			GameObject.Find ("Box/LeftSurface").SetActive (false);
+			GameObject.Find ("Box/RightSurface").SetActive (false);
+			GameObject.Find ("Box/BackSurface").SetActive (false);
+			GameObject.Find ("Box/TopSurface").SetActive (false);
+			GameObject.Find ("Box/DownSurface").SetActive (false);
+			GameObject.Find ("Eagle_00").GetComponent<birdBehaviour> ().escape = true;
 			int starNum = 1;
 			if (RotateCount == Global.minStep)
 				starNum = 3;
 			else if (RotateCount<= Global.minStep+2) {
 				starNum = 2;
 			}
+			obj.SetActive (true);
 			GameObject.Find("Canvas/GameOverCanvas/Stars").GetComponent<RawImage>().texture=Resources.Load("stars/success"+starNum)as Texture;
 			if (PlayerPrefs.GetInt ("level" + Global.level) < starNum) {
 				PlayerPrefs.SetInt ("level" + Global.level,starNum);

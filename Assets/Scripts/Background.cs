@@ -8,7 +8,7 @@ public class Background : MonoBehaviour {
 	void Start () {
 		skyBox=GameObject.Find ("Main Camera").GetComponent<Skybox>();
 		//Screen.SetResolution(1280, 800, true, 60);
-		Screen.SetResolution (1600, 900, true);
+		Screen.SetResolution (1920, 1080, true);
 
 	}
 	
