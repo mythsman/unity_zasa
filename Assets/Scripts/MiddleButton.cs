@@ -15,10 +15,13 @@ public class MiddleButton : MonoBehaviour
 	private ArrayList surfaces;
 	private bool success;
 	private GameObject obj;
+	private GameObject leftButton,rightButton;
+	private Animation animation;
 
 	// Use this for initialization
 	void Start ()
 	{
+		animation = GameObject.Find ("Eagle_00").GetComponent<Animation> ();
 		obj = GameObject.Find ("Canvas/GameOverCanvas");
 		obj.SetActive (false);
 		success = false;
@@ -28,7 +31,8 @@ public class MiddleButton : MonoBehaviour
 		process = 0;
 		cameraTransform = GameObject.Find ("Main Camera").GetComponent<Transform> ();
 		cameraCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
-
+		leftButton=GameObject.Find ("Canvas/LeftButton");
+		rightButton=GameObject.Find ("Canvas/RightButton");
 	}
 
 	// Update is called once per frame
@@ -37,14 +41,15 @@ public class MiddleButton : MonoBehaviour
 		if (success)
 			return;
 		if (topView&&IsSuccess ()) {
-			//GameObject.Find ("Box").SetActive(false);
-
+			
 			GameObject.Find ("Box/FrontSurface").SetActive (false);
 			GameObject.Find ("Box/LeftSurface").SetActive (false);
 			GameObject.Find ("Box/RightSurface").SetActive (false);
 			GameObject.Find ("Box/BackSurface").SetActive (false);
 			GameObject.Find ("Box/TopSurface").SetActive (false);
+
 			GameObject.Find ("Box/DownSurface").SetActive (false);
+
 			GameObject.Find ("Eagle_00").GetComponent<birdBehaviour> ().escape = true;
 			int starNum = 1;
 			if (RotateCount == Global.minStep)
@@ -53,6 +58,7 @@ public class MiddleButton : MonoBehaviour
 				starNum = 2;
 			}
 			obj.SetActive (true);
+			obj.GetComponent<GameOver>().hideButtons ();
 			GameObject.Find("Canvas/GameOverCanvas/Stars").GetComponent<RawImage>().texture=Resources.Load("stars/success"+starNum)as Texture;
 			if (PlayerPrefs.GetInt ("level" + Global.level) < starNum) {
 				PlayerPrefs.SetInt ("level" + Global.level,starNum);
@@ -227,19 +233,23 @@ public class MiddleButton : MonoBehaviour
 	public void OnClick ()
 	{
 		if (!onRotate&&!Box.IsRotating()) {
-			
 			onRotate = true;
 			surfaces = Box.GetSurfaces ();
 			Box.ToggleRotate ();
 			if (!topView) {
-				
+				animation.Play ("atack");
+				animation.PlayQueued ("fly");
+				leftButton.SetActive (false);
+				rightButton.SetActive (false);
 				GameObject.Find ("TopSurface").GetComponent<Add_point_line> ().disable_all ();
 				GameObject.Find ("FrontSurface").GetComponent<Add_point_line> ().disable_all ();
 				GameObject.Find ("LeftSurface").GetComponent<Add_point_line> ().disable_all ();
 				GameObject.Find ("RightSurface").GetComponent<Add_point_line> ().disable_all ();
 				GameObject.Find ("BackSurface").GetComponent<Add_point_line> ().disable_all ();
+			} else {
+				leftButton.SetActive (true);
+				rightButton.SetActive (true);
 			}
-
 		}
 	}
 }
