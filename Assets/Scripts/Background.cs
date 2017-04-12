@@ -7,14 +7,10 @@ public class Background : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		skyBox=GameObject.Find ("Main Camera").GetComponent<Skybox>();
-		//Screen.SetResolution(1280, 800, true, 60);
-		Screen.SetResolution (1920, 1080, true);
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		skyBox.transform.Rotate (0.1f,0.1f,0.1f);
-
 	}
 }

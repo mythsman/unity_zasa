@@ -1,16 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
 
 	public static point[,] table = new point[5, 16];
+	GameObject storyCanvas;
+
+	int time=0;
+	RawImage buttonImage;
+	Color trans = new Color (1f, 1f, 1f, 0);
+	Color solid=new Color(1f,1f,1f,1f);
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+		buttonImage = GameObject.Find ("Canvas/StoryCanvas/Button/RawImage").GetComponent<RawImage> ();
+		GameObject.Find ("Canvas/RawImage").GetComponent<RawImage> ().texture = Resources.Load ("targets/level"+Global.level)as Texture;
 		GameObject temp1 = GameObject.Find ("Box/FrontSurface");
 		for (int i = 0; i < 16; i++) {
 			point a = new point (i % 4, i / 4, 0);
@@ -50,8 +58,14 @@ public class Main : MonoBehaviour
 						if ((i != k || j != l) && table [i, j].x == table [k, l].x && table [i, j].y == table [k, l].y && table [i, j].z == table [k, l].z) {
 							table [i, j].store_local (k, l);
 						}
+		storyCanvas = GameObject.Find ("Canvas/StoryCanvas");
+		if (Global.level == 1) {
+			storyCanvas.SetActive (true);
+		} else {
+			storyCanvas.SetActive (false);
+		}
 	}
-
+		
 
 	public static bool Is_Line_On (point a, point b)
 	{
@@ -136,6 +150,14 @@ public class Main : MonoBehaviour
 
 	void Update ()
 	{
+		time++;
+		if (time == 40) {
+			buttonImage.color = trans;
+
+		} else if (time == 80) {
+			time = 0;
+			buttonImage.color = solid;
+		}
 		try {
 			if (Point_List.point_list.Count > Point_List.sure_index + 1) {
 				if (Point_List.sure_index < 0) {

@@ -7,8 +7,9 @@ public class point {
 	public int x, y, z;
 	public int direct,index;
 	public ArrayList local_pos = new ArrayList ();
-
-	Color[] color = {Color.white, new Color(0.796f,0.298f,0.298f) };
+	// 
+	//new Color(0.243f,0.243f,0.380f),
+	Color[] color = {new Color(0.5f,0.5f,0.5f),new Color(0.796f,0.298f,0.298f),Color.white };
 
 	public point(int _x,int _y,int _z){	
 		x = _x;
